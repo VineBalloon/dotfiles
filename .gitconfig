@@ -1,0 +1,37 @@
+[core]
+	editor = vim -c \"set fenc=utf-8\"
+	excludesfile = ${HOME}/.gitignore_global
+	precomposeunicode = true
+	quotepath = false
+
+[user]
+	name = VineBalloon
+	email = vincentchen2.033@gmail.com
+
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+
+[push]
+	default = simple
+
+[diff]
+    tool = vimdiff
+
+[difftool "vimdiff"]
+    cmd = vim -d $BASE $LOCAL
+
+[merge]
+    tool = vimdiff
+
+[mergetool "vimdiff"]
+    cmd = vim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[alias]
+	co = checkout
+	cm = commit -m
+    ca = commit -am
+    dt = difftool
+    s = status -sb
+    p = push

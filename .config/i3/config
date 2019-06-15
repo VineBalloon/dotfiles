@@ -1,0 +1,194 @@
+# i3 config file (v4)
+#
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+
+set $mod        Mod1
+set $terminal   alacritty
+set $browser    firefox
+set $lock       i3lock -i ~/pics/lock.png
+
+set $coloract   "#c5d1da"
+set $colorin    "#98a1a8"
+
+# border
+#bindsym $mod+u border pixel 1
+
+# Get stuff from Xresources
+
+# Get font
+set_from_resource $font     i3wm.font
+
+# Get colours
+set_from_resource $color0   i3wm.color0     
+set_from_resource $color1   i3wm.color1
+set_from_resource $color2   i3wm.color2
+set_from_resource $color3   i3wm.color3
+set_from_resource $color4   i3wm.color4
+set_from_resource $color5   i3wm.color5
+set_from_resource $color6   i3wm.color6
+set_from_resource $color7   i3wm.color7
+set_from_resource $color8   i3wm.color8
+set_from_resource $color9   i3wm.color9
+set_from_resource $color10  i3wm.color10
+set_from_resource $color11  i3wm.color11
+set_from_resource $color12  i3wm.color12
+set_from_resource $color13  i3wm.color13
+set_from_resource $color14  i3wm.color14
+set_from_resource $color15  i3wm.color15
+
+set_from_resource $coloru   i3wm.color2
+set_from_resource $split    i3wm.color10
+
+###### KEYBINDINGS #######
+
+floating_modifier $mod
+focus_follows_mouse no
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# split in horizontal and vertical orientation
+bindsym $mod+g split v
+bindsym $mod+v split h
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+Shift+u layout tabbed
+bindsym $mod+Shift+i layout stacked
+bindsym $mod+Shift+o layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+o sticky toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+p focus parent
+
+###### EXECUTE PROGRAMS ######
+
+bindsym $mod+w              exec $browser
+bindsym $mod+Shift+t        exec wpg -m
+bindsym $mod+Ctrl+Return    exec $terminal
+bindsym $mod+Shift+q        kill
+bindsym $mod+Ctrl+l         exec $lock
+bindsym $mod+c              exec code
+
+bindsym --release Print exec escrotum --exec='mv $f ~/pics/screenies'
+bindsym --release Shift+Print exec escrotum -s --exec='mv $f ~/pics/screenies'
+bindsym --release $mod+Shift+Print exec escrotum -C
+bindsym --release $mod+Shift+s exec escrotum -sC
+
+# Handy system shortcuts
+bindsym $mod+Ctrl+j     exec xbacklight -dec 10
+bindsym $mod+Ctrl+k     exec xbacklight -inc 10
+bindsym $mod+Ctrl+i     exec pulsemixer --id 0 --change-volume +5
+bindsym $mod+Ctrl+u     exec pulsemixer --id 0 --change-volume -5
+bindsym $mod+Ctrl+m     exec pulsemixer --id 0 --toggle-mute
+
+# scratchpad terminal
+bindsym $mod+u [instance = "dropdown"] scratchpad show
+
+# rename workspaces
+set $ws1 "1:一 "
+set $ws2 "2:二 "
+set $ws3 "3:三 "
+set $ws4 "4:四 "
+set $ws5 "5:五 "
+set $ws6 "6:六 "
+set $ws7 "7:七 "
+set $ws8 "8:八 "
+set $ws9 "9:九 "
+set $ws10 "10:十 "
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+x exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+mode "resize" {
+        # resize windows
+        bindsym l resize shrink width 5 px or 5 ppt
+        bindsym j resize grow height 5 px or 5 ppt
+        bindsym k resize shrink height 5 px or 5 ppt
+        bindsym h resize grow width 5 px or 5 ppt
+
+        # move windows
+        bindsym Shift+l move right 5
+        bindsym Shift+j move down 5
+        bindsym Shift+k move up 5
+        bindsym Shift+h move left 5
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "display" {
+        bindsym h move workspace to output left
+        bindsym j move workspace to output down
+        bindsym k move workspace to output up
+        bindsym l move workspace to output right
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+bindsym $mod+t mode "display"
+bindsym $mod+d exec --no-startup-id dmenu_run
+#
+###### STARTUP ######
+
+# wpgtk
+exec --no-startup-id ~/.config/wpg/wp_init.sh
+# Source Xresources config
+exec --no-startup-id xrdb ~/.Xresources
+# Faster repeat rate
+exec --no-startup-id xset r rate 200 30
+# Self explanatory
+#exec --no-startup-id setxkbmap -option caps:escape
+# Flux equivalent
+#exec --no-startup-id redshift -c ~/.config/redshift/config
+# Set background image TODO
+exec_always --no-startup-id feh --bg-scale ~/pics/bg.png
+
+exec_always --no-startup-id ~/.config/polybar/launch.sh
