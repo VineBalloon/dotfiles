@@ -1,5 +1,5 @@
 # ranger-cd
-if command -v ranger; then
+if command -v ranger >/dev/null; then
     ranger-cd() {
         tempfile="$(mktemp -t tmp.XXXXXX)"
         /usr/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
@@ -11,7 +11,7 @@ if command -v ranger; then
     }
 fi
 
-if command -v bc; then
+if command -v bc >/dev/null; then
     # bc one-liners
     calc() {
         bc -l <<< "$@"
