@@ -85,6 +85,7 @@ bindsym $mod+Shift+t        exec wpg -m
 bindsym $mod+Ctrl+Return    exec $terminal
 bindsym $mod+Shift+q        kill
 bindsym $mod+Ctrl+l         exec $lock
+bindsym $mod+Ctrl+h         exec $lock && sysctl hibernate
 bindsym $mod+c              exec code
 
 bindsym --release Print exec escrotum --exec='mv $f ~/pics/screenies'

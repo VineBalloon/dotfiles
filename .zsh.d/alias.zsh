@@ -7,11 +7,17 @@ if command -v ranger >/dev/null; then
     alias ranger="ranger-cd"
 fi
 
-# wpa_supplicant
-if command -v wpa_supplicant >/dev/null; then
-    WSCONF=/etc/wpa_supplicant/wpa_supplicant-wlp3s0.conf
+INTERFACE=$(ip link | grep -o "w.*:" | cut -d: -f1)
+# NetworkManager
+if command -v nmcli >/dev/null; then
+    alias wifid="nmcli radio wifi off"
+    alias wifie="nmcli radio wifi on"
+    alias wifir="wifid && wifie"
+# wpa_supplicant only
+elif command -v wpa_supplicant >/dev/null; then
+    WSCONF=/etc/wpa_supplicant/wpa_supplicant-$INTERFACE.conf
     alias wifid="sudo killall wpa_supplicant"
-    alias wifie="sudo wpa_supplicant -i wlp3s0 -B -c $WSCONF"
+    alias wifie="sudo wpa_supplicant -i $INTERFACE -B -c $WSCONF"
     alias wifir="wifid && wifie"
 fi
 
