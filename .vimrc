@@ -27,7 +27,9 @@ let maplocalleader = "\\"
 set nocompatible
 
 set backspace=indent,eol,start
-set bg=dark
+"set bg=dark
+color morning
+set bg=light
 set cursorline
 set history=50
 set incsearch

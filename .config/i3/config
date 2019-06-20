@@ -1,19 +1,15 @@
 # i3 config file (v4)
-#
-# Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod        Mod1
 set $terminal   alacritty
 set $browser    firefox
-set $lock       i3lock -i ~/pics/lock.png
+set $lock       i3lock -efi ~/pics/lock.png
 
 set $coloract   "#c5d1da"
 set $colorin    "#98a1a8"
 
-# border
-#bindsym $mod+u border pixel 1
-
-# Get stuff from Xresources
+# Turn off borders
+default_border pixel 1
 
 # Get font
 set_from_resource $font     i3wm.font
@@ -85,8 +81,7 @@ bindsym $mod+Shift+t        exec wpg -m
 bindsym $mod+Ctrl+Return    exec $terminal
 bindsym $mod+Shift+q        kill
 bindsym $mod+Ctrl+l         exec $lock
-bindsym $mod+Ctrl+h         exec $lock && sysctl hibernate
-bindsym $mod+c              exec code
+bindsym $mod+Ctrl+h         exec sysctl hibernate
 
 bindsym --release Print exec escrotum --exec='mv $f ~/pics/screenies'
 bindsym --release Shift+Print exec escrotum -s --exec='mv $f ~/pics/screenies'
@@ -181,15 +176,10 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 
 # wpgtk
 exec --no-startup-id ~/.config/wpg/wp_init.sh
-# Source Xresources config
 exec --no-startup-id xrdb ~/.Xresources
-# Faster repeat rate
 exec --no-startup-id xset r rate 200 30
-# Self explanatory
 #exec --no-startup-id setxkbmap -option caps:escape
-# Flux equivalent
 #exec --no-startup-id redshift -c ~/.config/redshift/config
-# Set background image TODO
-exec_always --no-startup-id feh --bg-scale ~/pics/bg.png
-
+exec_always --no-startup-id xss-lock -- $lock &
 exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id feh --bg-scale ~/pics/bg.png
