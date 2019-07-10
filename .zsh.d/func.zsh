@@ -20,3 +20,6 @@ fi
 
 # mkcd function
 mkcd() { mkdir -p "$@" && cd "$@"; }
+
+# objdump function
+objd() { objdump -D "$@" -M intel | less; }

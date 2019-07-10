@@ -29,5 +29,17 @@ if command -v convert >/dev/null && command -v xdpyinfo >/dev/null; then
     alias lockgen="convert -scale $(xdpyinfo | grep -o "[[:digit:]]\+x[[:digit:]]\+ pixels" | cut -d' ' -f1) ~/pics/bg.png ~/pics/lock.png"
 fi
 
+# laptop power percentage alias
+BAT="/sys/class/power_supply/BAT1"
+if [ -d  $BAT ]; then
+    alias cb="cat $BAT/capacity $BAT/status"
+fi
+
 # temp
 alias temp="mkcd /tmp/$$"
+
+# ctty
+if [ -f ${HOME}/.ctty.sh ]; then
+    alias ctty="${HOME}/.ctty.sh"
+fi
+

@@ -178,8 +178,9 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 exec --no-startup-id ~/.config/wpg/wp_init.sh
 exec --no-startup-id xrdb ~/.Xresources
 exec --no-startup-id xset r rate 200 30
-#exec --no-startup-id setxkbmap -option caps:escape
-#exec --no-startup-id redshift -c ~/.config/redshift/config
-exec_always --no-startup-id xss-lock -- $lock &
+exec --no-startup-id nm-applet
+exec --no-startup-id redshift-gtk
+
+exec_always --no-startup-id xss-lock -- $lock
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec_always --no-startup-id feh --bg-scale ~/pics/bg.png
