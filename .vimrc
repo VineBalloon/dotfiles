@@ -17,7 +17,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'rhysd/vim-clang-format'
 
 " ale
-Plug 'w0rp/ale'
+Plug 'w0rp/ale', { 'on' : 'ALEToggle' }
 
 " Insert other plugs here
 
@@ -40,43 +40,57 @@ set nocompatible
 
 set backspace=indent,eol,start
 "set bg=dark
-color morning
 set bg=light
+color morning
 set cursorline
 set history=50
 set incsearch
 set nojoinspaces
 
-" This doesn't work for some fucking reason
+" This doesn't work for some reason
 set noswapfile
 
-set ruler
-set showcmd
-set wildmenu
+set ruler showcmd wildmenu
 
 " Show matching brackets
-set showmatch
-set matchtime=2
+set showmatch matchtime=2
 
 " Best thing since sliced bread
 set scrolloff=5
 
 " tabs boi
 "set tabstop=2
-set vartabstop=2,2,4,6,10
-set shiftwidth=2
+set vartabstop=2,2,4,6,10 shiftwidth=2
 "set expandtab
 "set shiftround
 
-" May cause some rendering issues
-"set lazyredraw
+" Avoid ^]O from doing funky stuff
+set timeout timeoutlen=5000 ttimeoutlen=100
 
-" Use combined relativenumber if we can
-if v:version >= 740
-  set number
+" Avoid rendering issues
+set nolazyredraw
+
+set number
+function! ToggleNn()
+	if &nu ==# 0
+		set nu
+	else
+		set nonu
+	endif
+endfunction
+nnoremap <leader>nn :call ToggleNn()<CR>
+
+" Toggle relativenumber
+if exists('+relativenumber')
   set relativenumber
-else
-  set relativenumber
+	function! ToggleRn()
+		if &relativenumber ==# 0
+		  set relativenumber
+		else
+		  set norelativenumber
+		endif
+	endfunction
+	nnoremap <leader>rn :call ToggleRn()<CR>
 endif
 
 " Colorcolumn stuff
@@ -142,8 +156,8 @@ if has("autocmd")
 
 	" format on save
 	augroup format
-		au BufWrite *.c
-			  \ exe "normal! gg=G<C-o><C-o>"
+		"au BufWrite *.c
+			  "\ exe "normal! gg=G"
 	
 		au BufWrite *.cpp
 			  \ ClangFormat
@@ -157,12 +171,7 @@ if has("autocmd")
 			  \ tabstop=2
 			  \ expandtab
 			  \ shiftround
-	augroup END
-
-	" scratch
-	augroup scratch
-		au BufWrite *.cpp
-			  \ ALEDetail
+			  \ vartabstop=""
 	augroup END
 else
   set autoindent
@@ -184,6 +193,9 @@ if exists("&foldenable")
   set foldmethod=indent
   nnoremap <leader>f za
 endif
+
+" shit hack
+nnoremap <leader>ale :ALEToggle<CR>
 
 " Toggle local buffer's swapfile option
 nnoremap <leader>sf :setlocal swapfile! \| :set swapfile?<CR>
