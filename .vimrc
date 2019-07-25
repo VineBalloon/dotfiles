@@ -59,8 +59,8 @@ set showmatch matchtime=2
 set scrolloff=5
 
 " tabs boi
-"set tabstop=2
-set vartabstop=2,2,4,6,10 shiftwidth=2
+set tabstop=2
+set shiftwidth=2
 "set expandtab
 "set shiftround
 
