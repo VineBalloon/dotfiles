@@ -13,8 +13,26 @@ call plug#begin('~/.vim/plugged')
 " Go
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-" Clang format
+" clang format
 Plug 'rhysd/vim-clang-format'
+
+" deoplete
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
+
+" deoplete-vim
+Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+
+" deoplete-asm
+Plug 'deoplete-plugins/deoplete-asm', { 'do': 'make'}
 
 " ale
 Plug 'w0rp/ale', { 'on' : 'ALEToggle' }
