@@ -1,3 +1,7 @@
+# GO
+export GOPATH="$HOME/.gocode"
+export GOROOT="/usr/local/go"
+
 # PATH
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$GOROOT/bin"

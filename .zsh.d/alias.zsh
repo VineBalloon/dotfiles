@@ -42,4 +42,3 @@ alias temp="mkcd /tmp/$$"
 if [ -f ${HOME}/.ctty.sh ]; then
     alias ctty="${HOME}/.ctty.sh"
 fi
-
